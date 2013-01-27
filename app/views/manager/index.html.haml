@@ -1,0 +1,43 @@
+%h1 Hello
+.accordion#accordion2
+  .accordion-group
+    .accordion-heading
+      %a.accordion-toggle{ href: "#login", data: { toggle: "collapse", parent: "#accordion2" } } Log in
+    .accordion-body.collapse.in#login
+      .accordion-inner 
+        = form_tag login_user_path, method: "post", id: "login_form", :html => { :class => 'form-horizontal' } do
+          .control-group
+            %label.control-label Enter email
+            .controls
+              %input#log_email{ name: "email", type: "text", placeholder: "E-mail address" }
+          .control-group
+            %label.control-label Enter password
+            .controls
+              %input#log_pass{ name: "password", type: "password", placeholder: "Password" }
+            %input#login{ type: "submit", value: "Log in" }
+    .accordion-heading
+      %a.accordion-toggle{ href: "#collapseOne", data: { toggle: "collapse", parent: "#accordion2" } } Register
+    .accordion-body.collapse#collapseOne
+      .accordion-inner
+        = form_tag user_path, method: "post", id: "reg_form", :html => { :class => 'form-horizontal' } do
+          #message
+          .control-group
+            %label.control-label Enter name
+            .controls
+              %input#reg_name{ name: "user[name]", type: "text", placeholder: "Name" }
+          .control-group
+            %label.control-label Enter email
+            .controls
+              %input#reg_email{ name: "user[email]", type: "text", placeholder: "E-mail address" }
+          .control-group
+            %label.control-label Enter password
+            .controls
+              %input#reg_pass{ name: "user[password]", type: "password", placeholder: "Password" }
+          .control-group
+            %label.control-label Password confirmation
+            .controls
+              %input#reg_conf{ name: "confirmation", type: "password", placeholder: "Password" }
+            %input#register{ type: "submit", value: "Register" }
+
+- content_for :javascripts do
+  = javascript_include_tag "menu"
