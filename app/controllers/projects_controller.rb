@@ -5,7 +5,12 @@ class ProjectsController < ApplicationController
 	end
 
   def create
-  	project = Project.new
+  	@project = Project.new(name: params[:name], user_id: session[:user_id])
+    if @project.save 
+      render :partial => "project"
+    else
+      render :text => ""
+    end 
   end
   
   def update

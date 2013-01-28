@@ -1,6 +1,37 @@
-%h3
-  = current_user.name
-  %a{ href: logout_user_path } Log Out
-- @projects.each do |project|
-  %li= project.name
-%input{ type: "submit", value: "Add TODO" }
+.main{style: "text-align:center;"}
+  %h2 Simple Todo Lists
+  %h5
+    From
+    = current_user.name
+    %a{ href: logout_user_path } [Log out]
+  .wrapper
+    - @projects.each do |project|
+      %li 
+        = project.name
+        %a{href: "#", style: "padding:10px;"} 
+          %i.icon-pencil
+        %a{href: "#"}
+          %i.icon-trash
+      .input-append
+        %i.icon-plus
+        %input.span2#task_name{ name: "name", type: "text", placeholder: "Start typing here to create a task...", style: "width:500px;" }
+        %button.btn.btn-success#create_task{ type: "button", data: { project_id: project.id } } Add Task
+      .task-wrapper
+        - project.tasks.each do |task|
+          %li
+            %input{ type:"checkbox" }
+            = task.name
+            %a{href: "#", style: "padding:10px;"} Priority
+            %a{href: "#", style: "padding:10px;"} Update
+            %a{href: "#", style: "padding:10px;"} Deadline
+            %a{href: "#", style: "padding:10px;"} Delete
+
+  %button.btn.btn-primary#add_todo{ type: "button" } Add TODO List
+  .new_proj{style: "display:none;"}  
+    %p#message.text-warning
+    .input-append
+      %input.span2#proj_name{ name: "name", type: "text", placeholder: "Start typing here to create a project...", style: "width:500px;" }
+      %a.btn#create_proj{ type: "button" } Create
+
+- content_for :javascripts do
+  = javascript_include_tag "project"

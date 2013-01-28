@@ -6,7 +6,7 @@ TaskManager::Application.routes.draw do
     get 'logout'
   end
   resources :projects, only: [:create, :update, :delete, :index]
-  resources :tasks
+  resources :tasks, only: [:create, :update, :delete]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

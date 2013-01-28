@@ -6,6 +6,7 @@
     .accordion-body.collapse.in#login
       .accordion-inner 
         = form_tag login_user_path, method: "post", id: "login_form", :html => { :class => 'form-horizontal' } do
+          #message
           .control-group
             %label.control-label Enter email
             .controls
