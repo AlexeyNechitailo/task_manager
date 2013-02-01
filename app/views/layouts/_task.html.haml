@@ -1,1 +1,20 @@
-%li= @task.name
+%tr.task{ data: { task_id: @task.id } }
+  %td
+    - if @task.is_done
+      %input{ type:"checkbox", class: "checked" }
+    - else
+      %input{ type:"checkbox" }
+  %td{style: "width:400px;text-align:left;"}= @task.name
+  %td
+    %a{href: "#", style: "padding:10px;", data: { task_id: @task.id }} 
+      %i.icon-arrow-up
+  %td
+    %a{href: "#", style: "padding:10px;", data: { task_id: @task.id }} 
+      %i.icon-pencil
+  %td
+    %a#picker{href: "#", style: "padding:10px;", data: { task_id: @task.id }} 
+      %i.icon-time
+      %input{ type:"text", id:"datepicker", style:"width:0px;height:0px;" }
+  %td
+    %a{href: task_path(task_id: @task.id), style: "padding:10px;", data: { method: "delete", remote: "true", confirm: "Are you sure?" }} 
+      %i.icon-trash

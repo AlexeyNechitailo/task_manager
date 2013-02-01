@@ -1,5 +1,5 @@
 class Priority < ActiveRecord::Base
-  belongs_to :task
+  has_many :tasks
   attr_accessible :name
   validates :name, :presence => true
 end
