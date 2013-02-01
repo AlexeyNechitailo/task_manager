@@ -6,6 +6,7 @@ group :test, :development, :production do
   gem 'mysql2'
   gem 'haml-rails'
   gem 'jquery-rails'
+  gem 'jquery-ui-rails'
   gem 'rails-i18n'
   gem 'twitter-bootstrap-rails', :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git',
                                  :branch => 'static'
