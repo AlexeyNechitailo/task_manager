@@ -11,6 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery.ui.datepicker
+//= require jquery.ui.slider
+//= require jquery-ui-timepicker-addon
 //= require jquery_ujs
 //= require bootstrap
-//= require_tree .

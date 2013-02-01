@@ -10,5 +10,8 @@
  *
  *= require bootstrap.min
  *= require_self
+ *= require jquery.ui.datepicker
+ *= require jquery.ui.slider
+ *= jquery-ui-timepicker-addon
  *= require_tree .
  */

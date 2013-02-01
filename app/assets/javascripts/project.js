@@ -1,5 +1,36 @@
 $(function(){
 
+  $("table").on("click", "td > #picker", function() {
+    $('#datepicker').datetimepicker({
+        onClose: function(dateText, inst) {
+          if(dateText.length<1){
+            alert("Date wasn't set");
+          }
+          else{
+            console.log(dateText); // make your AJAX call!
+            month = dateText[0] + dateText[1] + "-";
+            day = dateText[3] + dateText[4] + "-";
+            date = day + month + dateText.substr(6);
+            console.log(date);
+            $.ajax({
+              type  : "get",
+              url   : "/task/set_deadline",
+              data  : { task_id: $(this).parent().data("task_id"), date: date },
+              success: function(data) {
+                if(data.length > 0){
+                  alert("success");
+                }
+                else{
+                  // $("#ct_message").html("Error. Project wasn't created");  
+                }
+              }
+            });
+            return false;
+          }
+        }
+    }).focus(); //make the datepicker appear!
+  });
+
 	$("#add_todo").click(function(){
     $(".new_proj").show();
 	});
@@ -17,11 +48,11 @@ $(function(){
       data  : { name: $("#proj_name").val() },
       success: function(data) {
         if(data.length > 0){
-          $(".wrapper").prepend(data);
+          $(".proj_wrap").prepend(data);
           $(".new_proj").hide();
         }
         else{
-          $("#message").html("Error. Project wasn't created");  
+          $("#ct_message").html("Error. Project wasn't created");  
         }
       }
     });
@@ -29,30 +60,32 @@ $(function(){
 	
 	});
 
-	$("#create_task").on("click", function(){
-		
-		if($("#task_name").val().length < 1){
+  $(".proj_wrap, .wrapper").on("click", "li > .input-append > button", function(){
+    // alert("fired");
+    var project_id = $(this).data("project_id");
+    var name = $("li[data-project_id=" + project_id +"] > .input-append > .span2").val()
+    
+    if(name.length < 1){
       $("#message").html("Can't be blank");
       return false;
     }
     
     $.ajax({
       type  : "POST",
-      url   : "/tasks",
-      data  : { name: $("#task_name").val(), project_id: $(this).data("project_id") },
+      url   : "/task",
+      data  : { name: name, project_id: project_id },
       success: function(data) {
         if(data.length > 0){
-          $(".task-wrapper").prepend(data);
-          // $(".new_proj").hide();
+          $("li[data-project_id=" + project_id +"] > .task-wrap > table").prepend(data); 
         }
         else{
-          // window.location = "/projects";  
+          $("#message").html("Error. Task wasn't created");   
         }
       }
     });
     return false;
-	
-	});
+  
+  });
 
 
 });
