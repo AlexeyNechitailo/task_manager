@@ -25,6 +25,13 @@ class TasksController < ApplicationController
 
   def set_deadline
     p params
+    @task = Task.find(params[:task_id])
+    @task.deadline = params[:date]
+    if @task.save
+      render text: ""
+    else
+      render text: "Error"
+    end
   end
 
   def mark_as_done

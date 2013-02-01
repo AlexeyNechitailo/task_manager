@@ -41,7 +41,7 @@
                 %td
                   %a#picker{href: "#", style: "padding:10px;", data: { task_id: task.id }} 
                     %i.icon-time
-                    %input{ type: "text", id: "datepicker", style: "width:0px;height:0px;" }
+                    %input{ type: "text", id: "datepicker#{task.id}", style: "width:0px;height:0px;", data: { task_id: task.id } }
                 %td
                   %a{href: task_path(task_id: task.id), style: "padding:10px;", data: { method: "delete", remote: "true", confirm: "Are you sure?" }} 
                     %i.icon-trash
@@ -53,7 +53,6 @@
       %input.span2#proj_name{ name: "name", type: "text", placeholder: "Start typing here to create a project...", style: "width:500px;" }
       %a.btn#create_proj Create
 
-/ <input type="text" id="datepicker">
 - content_for :stylesheets do
   = stylesheet_link_tag "jquery-ui-timepicker-addon"
 - content_for :javascripts do

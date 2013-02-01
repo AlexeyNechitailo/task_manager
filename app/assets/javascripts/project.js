@@ -1,7 +1,9 @@
 $(function(){
 
-  $("table").on("click", "td > #picker", function() {
-    $('#datepicker').datetimepicker({
+  $(".proj_wrap, .wrapper").on("click", ".project > .task-wrap > table > tbody > tr > td > #picker", function() {
+    task_id = $(this).data("task_id");
+    // $("input[data-task_id=" + $(this).data("task_id") + "]").datetimepicker({
+      $("#datepicker"+task_id).datetimepicker({
         onClose: function(dateText, inst) {
           if(dateText.length<1){
             alert("Date wasn't set");
@@ -15,7 +17,7 @@ $(function(){
             $.ajax({
               type  : "get",
               url   : "/task/set_deadline",
-              data  : { task_id: $(this).parent().data("task_id"), date: date },
+              data  : { task_id: task_id, date: date },
               success: function(data) {
                 if(data.length > 0){
                   alert("success");
