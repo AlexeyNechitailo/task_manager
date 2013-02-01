@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
 	def index
 		@projects = current_user.projects
+    @priorities = Priority.all
 	end
 
   def create
@@ -14,12 +15,18 @@ class ProjectsController < ApplicationController
   end
   
   def update
-  	project = Project.find(params[:project_id])
+  	@project = Project.find(params[:id])
+    if @project.update_attributes(params[:project])
+      @message = "successfully updated"
+    else
+      @message = "errors"
+    end
   end
   
-  def delete
-  	project = Project.find(params[:project_id])
-  	project.destroy
+  def destroy
+  	@project = Project.find(params[:id])
+    @project.tasks.each{ |task| task.destroy }
+  	@project.destroy
   end
 
   def check_authorization

@@ -4,34 +4,58 @@
     From
     = current_user.name
     %a{ href: logout_user_path } [Log out]
+  .proj_wrap
   .wrapper
     - @projects.each do |project|
-      %li 
-        = project.name
-        %a{href: "#", style: "padding:10px;"} 
+      %li.project{ data: { project_id: project.id } }
+        %span#project_name= project.name
+        %a#upd_proj{ href: project_path(project), style: "padding:10px;", data: { method: "put", remote: true, project_id: project.id } } 
           %i.icon-pencil
-        %a{href: "#"}
+        %a#del_proj{ href: project_path(project), data: { project_id: project.id, method: "delete", remote: "true", confirm: "Are you sure?" } }
           %i.icon-trash
-      .input-append
-        %i.icon-plus
-        %input.span2#task_name{ name: "name", type: "text", placeholder: "Start typing here to create a task...", style: "width:500px;" }
-        %button.btn.btn-success#create_task{ type: "button", data: { project_id: project.id } } Add Task
-      .task-wrapper
-        - project.tasks.each do |task|
-          %li
-            %input{ type:"checkbox" }
-            = task.name
-            %a{href: "#", style: "padding:10px;"} Priority
-            %a{href: "#", style: "padding:10px;"} Update
-            %a{href: "#", style: "padding:10px;"} Deadline
-            %a{href: "#", style: "padding:10px;"} Delete
+        .input-append
+          %i.icon-plus
+          %input.span2#task_name{ name: "name", type: "text", placeholder: "Start typing here to create a task...", style: "width:500px;" }
+          %button.btn.btn-success#cr{ type: "button", data: { project_id: project.id } } Add Task
+        %span.task-wrap
+          %table{style: "margin-left: auto;margin-right: auto;align:center;"}
+            - project.tasks.each do |task|
+              %tr.task{ data: { task_id: task.id } }
+                %td
+                  - if task.is_done
+                    %input{ type:"checkbox", class: "checked" }
+                  - else
+                    %input{ type:"checkbox" }
+                %td{style: "width:400px;text-align:left;"}= task.name
+                %td
+                  .dropdown
+                    %a.dropdown-toggle{href: "#", style: "padding:10px;", data: { toggle: "dropdown" } }
+                      %i.icon-arrow-up
+                    %ul.dropdown-menu{ role: "menu" }
+                      - @priorities.each do |priority|
+                        %li 
+                          %a{ tabindex: "-1", href: set_priority_task_path(task_id: task.id, priority_id: priority.id), data: { remote: "true" } }= priority.name
+                %td
+                  %a{href: "#", style: "padding:10px;", data: { task_id: task.id }} 
+                    %i.icon-pencil
+                %td
+                  %a#picker{href: "#", style: "padding:10px;", data: { task_id: task.id }} 
+                    %i.icon-time
+                    %input{ type: "text", id: "datepicker", style: "width:0px;height:0px;" }
+                %td
+                  %a{href: task_path(task_id: task.id), style: "padding:10px;", data: { method: "delete", remote: "true", confirm: "Are you sure?" }} 
+                    %i.icon-trash
 
   %button.btn.btn-primary#add_todo{ type: "button" } Add TODO List
   .new_proj{style: "display:none;"}  
-    %p#message.text-warning
+    %p#ct_message.text-warning
     .input-append
       %input.span2#proj_name{ name: "name", type: "text", placeholder: "Start typing here to create a project...", style: "width:500px;" }
-      %a.btn#create_proj{ type: "button" } Create
+      %a.btn#create_proj Create
 
+/ <input type="text" id="datepicker">
+- content_for :stylesheets do
+  = stylesheet_link_tag "jquery-ui-timepicker-addon"
 - content_for :javascripts do
   = javascript_include_tag "project"
+  = javascript_include_tag "jquery-ui-timepicker-addon"

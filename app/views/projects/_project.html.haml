@@ -1,1 +1,12 @@
-%li= @project.name
+%li.project{ data: { project_id: @project.id } }
+  %span#project_name= @project.name
+  %a#upd_proj{ href: project_path(@project), style: "padding:10px;", data: { method: "put", remote: true, project_id: @project.id } } 
+    %i.icon-pencil
+  %a#del_proj{ href: project_path(@project), data: { project_id: @project.id, method: "delete", remote: "true", confirm: "Are you sure?" } }
+    %i.icon-trash
+  .input-append
+    %i.icon-plus
+    %input.span2#task_name{ name: "name", type: "text", placeholder: "Start typing here to create a task...", style: "width:500px;" }
+    %button.btn.btn-success{ type: "button", data: { project_id: @project.id }, id: "create_task_#{@project.id}" } Add Task
+  %span.task-wrap
+    %table{style: "margin-left: auto;margin-right: auto;align:center;"}
