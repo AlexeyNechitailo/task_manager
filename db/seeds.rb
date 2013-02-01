@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Priority.create(name: "High")
+Priority.create(name: "Middle")
+Priority.create(name: "Low")
