@@ -6,7 +6,7 @@
     .accordion-body.collapse.in#login
       .accordion-inner 
         = form_tag login_user_path, method: "post", id: "login_form", :html => { :class => 'form-horizontal' } do
-          #message
+          #login_error_message
           .control-group
             %label.control-label Enter email
             .controls
@@ -15,13 +15,13 @@
             %label.control-label Enter password
             .controls
               %input#log_pass{ name: "password", type: "password", placeholder: "Password" }
-            %input#login{ type: "submit", value: "Log in" }
+            %input#log_in{ type: "submit", value: "Log in" }
     .accordion-heading
       %a.accordion-toggle{ href: "#collapseOne", data: { toggle: "collapse", parent: "#accordion2" } } Register
     .accordion-body.collapse#collapseOne
       .accordion-inner
         = form_tag user_path, method: "post", id: "reg_form", :html => { :class => 'form-horizontal' } do
-          #message
+          #reg_error_message
           .control-group
             %label.control-label Enter name
             .controls

@@ -1,9 +1,9 @@
 %tr.task{ data: { task_id: @task.id } }
   %td
     - if @task.is_done
-      %input{ type:"checkbox", class: "checked" }
+      %input.is_done{ type:"checkbox", checked: "true" }
     - else
-      %input{ type:"checkbox" }
+      %input.is_done{ type:"checkbox" }
   %td{style: "width:400px;text-align:left;"}= @task.name
   %td
     %a{href: "#", style: "padding:10px;", data: { task_id: @task.id }} 

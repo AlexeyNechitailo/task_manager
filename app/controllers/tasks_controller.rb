@@ -10,6 +10,12 @@ class TasksController < ApplicationController
   end
 
   def update
+    # @task = Task.find(params[:task_id])
+    # if @task.update_attributes(params[:task])
+    #   render text: ""
+    # else
+    #   render text: "Error"
+    # end
   end
 
   def destroy
@@ -24,10 +30,8 @@ class TasksController < ApplicationController
   end
 
   def set_deadline
-    p params
     @task = Task.find(params[:task_id])
-    @task.deadline = params[:date]
-    if @task.save
+    if @task.update_attributes(params[:task])
       render text: ""
     else
       render text: "Error"
@@ -35,6 +39,12 @@ class TasksController < ApplicationController
   end
 
   def mark_as_done
+    @task = Task.find(params[:task_id])
+    if @task.update_attributes(params[:task])
+      render text: ""
+    else
+      render text: "Error"
+    end
   end
 
 end

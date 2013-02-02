@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
 	belongs_to :project
 	belongs_to :priority
-	attr_accessible :name, :project_id
+	attr_accessible :name, :project_id, :deadline, :priority_id, :is_done
 	validates :name, :presence => true
 	default_scope order: "id DESC"
 

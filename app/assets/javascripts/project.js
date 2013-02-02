@@ -2,34 +2,31 @@ $(function(){
 
   $(".proj_wrap, .wrapper").on("click", ".project > .task-wrap > table > tbody > tr > td > #picker", function() {
     task_id = $(this).data("task_id");
-    // $("input[data-task_id=" + $(this).data("task_id") + "]").datetimepicker({
-      $("#datepicker"+task_id).datetimepicker({
-        onClose: function(dateText, inst) {
-          if(dateText.length<1){
-            alert("Date wasn't set");
-          }
-          else{
-            console.log(dateText); // make your AJAX call!
-            month = dateText[0] + dateText[1] + "-";
-            day = dateText[3] + dateText[4] + "-";
-            date = day + month + dateText.substr(6);
-            console.log(date);
-            $.ajax({
-              type  : "get",
-              url   : "/task/set_deadline",
-              data  : { task_id: task_id, date: date },
-              success: function(data) {
-                if(data.length > 0){
-                  alert("success");
-                }
-                else{
-                  // $("#ct_message").html("Error. Project wasn't created");  
-                }
-              }
-            });
-            return false;
-          }
+    $("#datepicker"+task_id).datetimepicker({
+      onClose: function(dateText, inst) {
+        if(dateText.length<1){
+          alert("Date wasn't set");
         }
+        else{
+          month = dateText[0] + dateText[1] + "-";
+          day = dateText[3] + dateText[4] + "-";
+          date = day + month + dateText.substr(6);
+          $.ajax({
+            type  : "get",
+            url   : "/task/set_deadline",
+            data  : { task_id: task_id, 'task[deadline]': date },
+            success: function(data) {
+              if(data.length > 0){
+                alert("suxx");
+              }
+              else{
+                // $("#ct_message").html("Error. Project wasn't created");  
+              }
+            }
+          });
+          return false;
+        }
+      }
     }).focus(); //make the datepicker appear!
   });
 
@@ -87,6 +84,38 @@ $(function(){
     });
     return false;
   
+  });
+
+  $(".proj_wrap, .wrapper").on("click", ".project > .task-wrap > table > tbody > tr > td > .is_done", function (){
+    var check;
+    if($(this).is(':checked')){
+      check = "true";
+    }
+    else{
+      check = "false";
+    }
+    var task_id = $(this).data("task_id");
+    var elem = $(this);
+    $.ajax({
+      type  : "get",
+      url   : "/task/mark_as_done",
+      data  : { task_id: elem.data("task_id"), 'task[is_done]': check },
+      success: function(data) {
+        if(data.length > 0){
+          $("#message").html("Error.");
+        }
+        else{
+          if (elem.is(':checked')){
+            $(".is_done[data-task_id=" + task_id + "]").prop('checked', false);
+          }
+          else{  
+            $(".is_done[data-task_id=" + task_id + "]").prop('checked', true);
+          }
+        }
+      }
+    });
+    return false;
+
   });
 
 

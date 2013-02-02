@@ -1,14 +1,14 @@
 $(function(){
 
-  $("#login").click(function(){
+  $("#log_in").click(function(){
     
     if($("#log_email").val().length < 1){
-      $("#message").html("Wrong email");
+      $("#login_error_message").html("Email can't be blank");
       return false;
     }
 
     if($("#log_pass").val().length < 1){
-      $("#message").html("Wrong pass");
+      $("#login_error_message").html("Pass can't be blank");
       return false;
     }
 
@@ -19,7 +19,7 @@ $(function(){
       data  : log_data,
       success: function(data) {
         if(data.length > 0){
-          $("#message").html(data);
+          $("#login_error_message").html(data);
         }
         else{
           window.location = "/projects";  
@@ -33,22 +33,22 @@ $(function(){
   $("#register").click(function(){
     
     if($("#reg_name").val().length < 1){
-      $("#message").html("Неправильное имя пользователя");
+      $("#reg_error_message").html("Неправильное имя пользователя");
       return false;
     }
 
     if($("#reg_email").val().length < 1){
-      $("#message").html("Wrong email");
+      $("#reg_error_message").html("Wrong email");
       return false;
     }
 
     if($("#reg_pass").val().length < 1){
-      $("#message").html("Wrong pass");
+      $("#reg_error_message").html("Wrong pass");
       return false;
     }
 
     if ($("#reg_pass").val() != $("#reg_conf").val()){
-      $("#message").html("Wrong confirmation");
+      $("#reg_error_message").html("Wrong confirmation");
       return false;
     }
 
@@ -59,7 +59,7 @@ $(function(){
       data  : reg_data,
       success: function(data) {
         if(data.length > 0){
-          $("#message").html(data);
+          $("#reg_error_message").html(data);
         }
         else{
           window.location = "/projects";  
