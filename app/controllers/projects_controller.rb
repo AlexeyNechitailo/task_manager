@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
   def create
   	@project = Project.new(name: params[:name], user_id: session[:user_id])
-    if @project.save 
+    if @project.has_unique_name?(params[:name]) && @project.save 
       render :partial => "project"
     else
       render :text => ""
