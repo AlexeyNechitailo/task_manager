@@ -1,9 +1,9 @@
 %tr.task{ data: { task_id: @task.id } }
   %td
     - if @task.is_done
-      %input.is_done{ type:"checkbox", checked: "true" }
+      %input.is_done{ type:"checkbox", checked: "true", data: { task_id: @task.id } }
     - else
-      %input.is_done{ type:"checkbox" }
+      %input.is_done{ type:"checkbox", data: { task_id: @task.id } }
   %td{style: "width:400px;text-align:left;"}= @task.name
   %td
     %a{href: "#", style: "padding:10px;", data: { task_id: @task.id }} 
@@ -14,7 +14,7 @@
   %td
     %a#picker{href: "#", style: "padding:10px;", data: { task_id: @task.id }} 
       %i.icon-time
-      %input{ type:"text", id: "datepicker", style:"width:0px;height:0px;", data: { task_id: @task.id } }
+      %input{ type: "text", id: "datepicker#{@task.id}", style: "width:0px;height:0px;", data: { task_id: @task.id } }
   %td
     %a{href: task_path(task_id: @task.id), style: "padding:10px;", data: { method: "delete", remote: "true", confirm: "Are you sure?" }} 
       %i.icon-trash
