@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   
   def create
     @task = Task.new(name: params[:name], project_id: params[:project_id])
+    @priorities = Priority.all
     if @task.has_unique_name_in_project?(params[:name]) && @task.save 
       render :partial => "layouts/task"
     else

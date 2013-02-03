@@ -6,8 +6,13 @@
       %input.is_done{ type:"checkbox", data: { task_id: @task.id } }
   %td{style: "width:400px;text-align:left;"}= @task.name
   %td
-    %a{href: "#", style: "padding:10px;", data: { task_id: @task.id }} 
-      %i.icon-arrow-up
+    .dropdown
+      %a.dropdown-toggle{href: "#", style: "padding:10px;", data: { toggle: "dropdown" } }
+        %i.icon-arrow-up
+      %ul.dropdown-menu{ role: "menu" }
+        - @priorities.each do |priority|
+          %li 
+            %a{ tabindex: "-1", href: set_priority_task_path(task_id: @task.id, priority_id: priority.id), data: { remote: "true" } }= priority.name
   %td
     %a{href: "#", style: "padding:10px;", data: { task_id: @task.id }} 
       %i.icon-pencil
