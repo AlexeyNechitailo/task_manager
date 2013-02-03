@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
 
-	def index
+  before_filter :check_authorization, only: :index
+	
+  def index
 		@projects = current_user.projects
     @priorities = Priority.all
 	end
@@ -27,10 +29,6 @@ class ProjectsController < ApplicationController
   	@project = Project.find(params[:id])
     @project.tasks.each{ |task| task.destroy }
   	@project.destroy
-  end
-
-  def check_authorization
-    redirect_to root_path if current_user.guest?
   end
 
 end
