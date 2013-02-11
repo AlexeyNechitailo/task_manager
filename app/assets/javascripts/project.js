@@ -86,7 +86,8 @@ $(function(){
   
   });
 
-  $(".proj_wrap, .wrapper").on("click", ".project > .task-wrap > table > tbody > tr > td > .is_done", function (){
+$(".proj_wrap, .wrapper").on("click", ".is_done", function (){
+  // $(".proj_wrap, .wrapper").on("click", ".project > .task-wrap > table > tbody > tr > td > .is_done", function (){
     var check;
     if($(this).is(':checked')){
       check = "true";
