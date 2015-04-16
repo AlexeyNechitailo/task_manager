@@ -1,5 +1,4 @@
 $(function(){
-
   $("#log_in").click(function(){
     
     if($("#log_email").val().length < 1){

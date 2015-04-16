@@ -4,6 +4,9 @@
     From
     = current_user.name
     %a{ href: logout_user_path } [Log out]
+  
+  = link_to 'FB', '#', class: 'js-send-message'
+
   .proj_wrap
   .wrapper
     - @projects.each do |project|

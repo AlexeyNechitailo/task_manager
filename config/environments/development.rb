@@ -35,4 +35,6 @@ TaskManager::Application.configure do
 
   # Expands the lines which load the assets
   # config.assets.debug = true
+  config.use_ssl = true
+  config.ssl_port = 3000
 end

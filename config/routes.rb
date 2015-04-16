@@ -10,7 +10,10 @@ TaskManager::Application.routes.draw do
     get 'set_priority'
     get 'mark_as_done'
   end
-  
+  resources :enova, only: :index do
+    post :index, on: :collection
+  end
+
   root :to => 'manager#index'
 
 end
